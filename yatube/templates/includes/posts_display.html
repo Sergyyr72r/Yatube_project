@@ -1,0 +1,59 @@
+{% load static %}
+{% load thumbnail %}
+    <article class='card'>
+      <div class="card-header"> 
+        <ul>
+          {% if not author %}
+            <li>
+              Автор: 
+              <a href="{% url  'posts:profile' post.author.username %}">@{{ post.author.username }}</a>
+            </li>
+          {% endif %}
+          <li>
+            Полное имя автора: 
+            <a href="{% url  'posts:profile' post.author.username %}">@{{ post.author.get_full_name }}</a>
+          </li>
+          {% if post.group %}
+          <li>
+            Группа: {{ post.group.title }}
+          </li>
+          {% endif %}
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+      </div>
+      <div class="card-body">
+        {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+          <img class="img-fluid" alt="Responsive image" src="{{ im.url }}">
+        {% endthumbnail %}
+        <p>
+          {{ post.text|linebreaks }}
+        </p>
+        <div class="btn-group">
+          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Действия
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{% url 'posts:post_detail' post.pk %}">Подробная информация</a>
+            {% if user == post.author %}
+            <form method="get" enctype="multipart/form-data" >
+              {% csrf_token %}
+            <a class="dropdown-item" href="{% url 'posts:post_edit' post.pk %}">Редактировать</a>
+          </form>
+          {% endif %}
+          </div>
+        </div>
+        <img src="{% static 'img/views.png' %}" width="30" height="30"> {{ post.views }}
+        <img src="{% static 'img/comment.png' %}" width="30" height="30"> {{ post.comments.count }}
+        </div>
+      </article>       
+    {% if post.group %}
+      <br>
+    {% if not group %}  
+      <a href="{% url 'posts:group' post.group.slug %}">все записи группы</a>
+    {% endif %}
+    {% else %}
+      <span style="color: red">Этой публикации нет ни в одном сообществе.</span>
+    {% endif %} 
+    {% if not forloop.last %}<hr>{% endif %}

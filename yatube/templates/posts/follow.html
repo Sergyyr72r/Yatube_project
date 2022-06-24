@@ -1,0 +1,14 @@
+{% extends 'base.html' %} 
+    {% block title %}Посты из Ваших подписок{% endblock %}
+      {% block content %} 
+        {% include 'posts/includes/paginator.html' %}
+        <div class="container py-5">     
+          <h1>Последние обновления в подписках</h1>
+          <article>
+            {% for post in page_obj %}
+              {% include 'includes/posts_display.html' %}
+            {% endfor %}           
+        </article>
+        </div>
+        {% include 'posts/includes/paginator.html' %}
+      {% endblock %}

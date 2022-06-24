@@ -1,10 +1,12 @@
-<!-- templates/base.html -->
 {% load static %}
 <!DOCTYPE html> 
-<html lang="ru">          
+<html lang="ru">
   <head>
-    {% block title%}
-    {% endblock %}        
+    {% include 'includes/head.html' %}
+    <title>
+    {% block title %}
+    {% endblock %}    
+    </title>  
   </head>
   <body>       
     <header>
@@ -15,7 +17,7 @@
         Контент не подвезли :(
       {% endblock %}
     </main>
-    <footer>
+    <footer class="border-top text-center py-3">
       {% include 'includes/footer.html' %} 
     </footer>
   </body>

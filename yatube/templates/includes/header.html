@@ -1,14 +1,51 @@
 {% load static %}
-<header>
-    <!-- Использованы классы бустрапа для создания типовой навигации с логотипом -->
-    <!-- В дальнейшем тут будет создано полноценное меню -->    
-    <nav class="navbar navbar-light" style="background-color: lightskyblue">
-      <div class="container">
-        <a class="navbar-brand" href={% url 'posts:index' %}>
-          <img src="{% static 'img/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-          <!-- тег span используется для добавления нужных стилей отдельным участкам текста -->
-          <span style="color:red">Ya</span>tube</a>
-        </a>
-      </div>
-    </nav>      
-  </header>
+{% with request.resolver_match.view_name as view_name %} 
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'posts:index' %}">
+      <img src="{% static 'img/logo2.png' %}" width="30" height="30" alt="">
+      <span style="color:red">Ya</span>tube
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'posts:index' %}">Главная</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'posts:post_create' %}">Новая запись</a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown" class="text-white bg-dark">
+          <a class="nav-link dropdown-toggle bg-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            @{{ user.username }}
+          </a>
+          <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+            <li><a class="nav-link" href="{% url 'users:profile_edit' %}">Редактировать профиль</a></li>
+            <li><a class="nav-link" href="{% url 'posts:follow_index' %}">Мои подписки</a></li>
+            <li><a class="nav-link" href="{% url 'users:logout' %}">Выйти</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about:author' %}"> Об авторе</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'about:tech' %}">Технологии</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endwith %}
