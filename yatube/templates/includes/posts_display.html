@@ -30,8 +30,8 @@
         <p>
           {{ post.text|linebreaks }}
         </p>
-        <div class="btn-group">
-          <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
             Действия
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -43,7 +43,6 @@
           </form>
           {% endif %}
           </div>
-        </div>
         <img src="{% static 'img/views.png' %}" width="30" height="30"> {{ post.views }}
         <img src="{% static 'img/comment.png' %}" width="30" height="30"> {{ post.comments.count }}
         </div>

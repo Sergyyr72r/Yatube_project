@@ -12,6 +12,7 @@
           <h3>Всего подписчиков: {{ author.following.count }} </h3>
           {% if request.user != author %}
           {% if following %}
+          <div class="container py-5">  
             <a
               class="btn btn-lg btn-light"
               href="{% url 'posts:profile_unfollow' author.username %}" role="button"
@@ -25,6 +26,7 @@
             >
               Подписаться
             </a>
+          </div>
           {% endif %}
           {% endif %}    
             {% for post in page_obj %}

@@ -15,9 +15,8 @@ class SignUp(CreateView):
 @login_required
 def profile_edit(request):
     user = get_object_or_404(User, pk=request.user.pk)
-    form = UpdateProfile(instance=user)
-    if request.method == 'get':
-        return render(request, 'users/profile_edit.html', {'form': form})
+    form = CreateForm(request.POST or None, instance=user)
     if form.is_valid():
         form.save()
-        return redirect('posts:profile', username=request.user)
+        return redirect('posts:profile', username=request.user.username)
+    return render(request, 'users/profile_edit.html', {'form': form})

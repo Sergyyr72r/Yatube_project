@@ -42,9 +42,11 @@
             <div class="d-flex justify-content-center">
               <form method="post" enctype="multipart/form-data" >
                 {% csrf_token %}
+                <div class='container'>
                 <button type="submit" class="btn btn-primary">
                   Удалить
                 </button>
+              </div>
               </form>
               <form method="get" enctype="multipart/form-data" >
                 {% csrf_token %}

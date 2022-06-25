@@ -1,7 +1,7 @@
 {% load static %}
 {% with request.resolver_match.view_name as view_name %} 
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container-fluid">
+<nav class="navbar navbar-dark navbar-expand-lg" style="background-color: #2f3030">
+  <div class="container">
     <a class="navbar-brand" href="{% url 'posts:index' %}">
       <img src="{% static 'img/logo2.png' %}" width="30" height="30" alt="">
       <span style="color:red">Ya</span>tube
@@ -20,11 +20,11 @@
         </li>
         {% endif %}
         {% if user.is_authenticated %}
-        <li class="nav-item dropdown" class="text-white bg-dark">
-          <a class="nav-link dropdown-toggle bg-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li class="nav-item dropdown" class="text-white">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             @{{ user.username }}
           </a>
-          <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #2f3030">
             <li><a class="nav-link" href="{% url 'users:profile_edit' %}">Редактировать профиль</a></li>
             <li><a class="nav-link" href="{% url 'posts:follow_index' %}">Мои подписки</a></li>
             <li><a class="nav-link" href="{% url 'users:logout' %}">Выйти</a></li>
